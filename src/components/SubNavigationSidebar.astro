@@ -1,0 +1,70 @@
+---
+const {items} = Astro.props;
+---
+{items.map((section: any) => {
+  if (section.component === 'navigation_sidebar_links') {
+    return (
+    <ul class="sub-nav-links pl-0 group-[aria-hidden=false]/mobile-nav:block">
+      {section.links.map((link: any) => {
+        return (
+        <li class="sub-nav-links__item [&:not(:last-child)]:mb-[15px]">
+            <a href={link.link.cahed_url} class="sub-nav-links__item-link text-secondary hover:text-primary">{link.label}</a>
+          </li>
+        )
+      })}
+      </ul>
+    )
+  } else if (section.component === 'navigation_sidebar_image_link') {
+    return (
+    <a href={section.link.cached_url} target={section.new_tab ? '_blank' : '_self'}
+        class="sub-nav-image-link group/link bg-[#7b8691] rounded-[10px] block h-[119px] overflow-hidden relative w-[215px] [&:not(:last-child)]:mb-[25px]"
+      >
+        {section.image.filename && <div class="sub-nav-image-link__image-wrapper rounded-[10px] h-full left-[50%] overflow-hidden absolute top-[50%] [transform:translate(-50%,-50%)] w-full">
+            <img
+              src={`${section.image.filename}/m/430x238`}
+              // src={`${section.image.filename}/m/215x119/filters:blur(40)`}
+              class="sub-nav-image-link__image lazyload group-hover/link:[transform:sclae(1.1)] h-full object-cover w-full [transition:transform_0.2s_linear]"
+              alt={section.image.alt}
+              width="215"
+              height="119"
+            >
+          </div>}
+        <div class="sub-nav-image-link__text text-white flex flex-col h-full justify-end left-0 p-[15px] absolute top-0 w-full">
+          <h4 class="sub-nav-image-link__subheadline [margin:0_0_2px_0]">{section.subheadline}</h4>
+          <h3 class="sub-nav-image-link__headline m-0">{section.headline}</h3>
+        </div>
+      </a>
+    )
+  } else if (section.component === 'navigation_sidebar_images_links') {
+    return (
+    <div class="sub-nav-images-links [&:not(:last-child)]:mb-[25px]">
+        <h3 class="sub-nav-images-links__headline text-secondary mb-3">{section.headline}</h3>
+        <ul class="sub-nav-images-links__items grid gap-[10px] [grid-template-columns:repeat(2,1fr)] pl-0">
+          {section.links.map((link: any) => {
+            return (
+            <li class="sub-nav-images-links__item">
+              <a
+                href={link.link.cached_url}
+                target={section.new_tab ? '_blank' : '_self'}
+                class="sub-nav-images-links__item-link items-center [background-color:rgb(205,_215,_243)] rounded-[10px] flex h-[70px] justify-center overflow-hidden relative w-full hover:after:opacity-100 after:[background-color:rgba(#000000,_0.05)] after:[content:''] after:h-full after:left-0 after:opacity-0 after:absolute after:top-0 after:[transition:opacity_0.2s_linear] after:w-full"
+                style={`background-color:${link.background_color.color};`}
+              >
+                {link.image.filename ? <img
+                    src={`${link.image.filename}/m/100x0`}
+                    // src={`${link.image.filename}/m/50x0/filters:blur(40)`}
+                    class="sub-nav-images-links__item-image lazyload h-[37px] object-contain relative [transition:transform_0.2s_linear] w-[50px] z-[2]"
+                    alt={link.text}
+                    width="215"
+                    height="119"
+                  > : <p class="sub-nav-images-links__item-text text-secondary m-0 relative p-[5px] [transition:color_0.2s_linear] text-center z-[4]">
+                    {link.text.split('[light]')[0] ?? link.text} {link.text.split('[light]') && <span class='text-[#787783] block [transition:color_0.2s_linear]'>{link.text.split('[light]')[1]?.split('[/light]')[0]}</span>}
+                  </p>}
+              </a>
+            </li>
+            )
+          })}
+        </ul>
+      </div>
+    )
+  }
+})}

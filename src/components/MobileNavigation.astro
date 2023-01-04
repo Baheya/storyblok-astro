@@ -1,0 +1,213 @@
+---
+import SubNavigationSidebar from "./SubNavigationSidebar.astro";
+
+const { config } = Astro.props;
+---
+
+<nav aria-hidden="true" class="mobile-nav group/mobile-nav bg-white aria-hidden:hidden flex-col h-full l-0 m-0 max-w-[100vw] overflow-y-auto fixed top-0 w-full z-10 flex">
+  <ul class="mobile-nav__head list-none flex items-center m-0 p-[25px]">
+    <li class="mobile-nav__head-item [&:first-child]:mr-auto">
+      <a href="/" title="Back to Home" class="header__logo block">
+        <svg role="img" focusable="false" width="158" height="33" xmlns="http://www.w3.org/2000/svg">
+              <title>Storyblok Home</title>
+          <g fill="none" fill-rule="evenodd">
+            <path fill="#FFF" d="M4 4h20v20H4z"/>
+            <g fill-rule="nonzero">
+              <path d="M45.404 23.093a10.75 10.75 0 01-3.354-.522 7.649 7.649 0 01-2.8-1.63l1.465-2.478a13.3 13.3 0 002.377 1.304 5.499 5.499 0 002.214.457c.52 0 .944-.098 1.237-.294.293-.163.423-.456.423-.815 0-.326-.162-.652-.553-.848a8.456 8.456 0 00-1.921-.652l-2.28-.75c-.618-.261-1.106-.522-1.497-.815a2.4 2.4 0 01-.846-.979 3.2 3.2 0 01-.26-1.304 4.242 4.242 0 011.53-3.326c.455-.391 1.041-.685 1.692-.913.652-.228 1.368-.326 2.117-.326 1.01 0 1.953.13 2.832.391.88.294 1.726.783 2.54 1.5l-1.595 2.446a10.838 10.838 0 00-2.019-1.141 4.35 4.35 0 00-1.758-.36c-.423 0-.814.066-1.107.262-.326.163-.456.456-.456.848 0 .39.163.652.488.847.326.196.977.392 1.856.62.816.206 1.62.456 2.41.75.65.26 1.172.554 1.595.848.8.59 1.243 1.55 1.172 2.543 0 1.337-.488 2.38-1.498 3.163-.976.783-2.279 1.174-4.004 1.174zm16.116-.946c-.553.229-1.204.457-1.92.653-.717.195-1.433.326-2.182.326-.521 0-.977-.065-1.433-.196a3.254 3.254 0 01-1.204-.652c-.326-.261-.586-.652-.782-1.076a4.198 4.198 0 01-.325-1.663v-7.011H51.98V9.463h1.725V5.19h4.037v4.24h2.735v3.097h-2.735v5.609c0 .424.098.75.326.978.228.163.521.26.847.26.325 0 .65-.032.944-.162.325-.098.618-.196.846-.326l.782 3.26h.032zm7.619.946a7.804 7.804 0 01-3.028-.554 6.387 6.387 0 01-3.647-3.75 7.51 7.51 0 010-5.283 6.387 6.387 0 013.647-3.75c.88-.358 1.888-.554 3.028-.554a6.832 6.832 0 015.275 2.12c.618.619 1.074 1.369 1.4 2.184a7.315 7.315 0 010 5.315A6.42 6.42 0 0172.2 22.54a7.804 7.804 0 01-3.061.554zm-2.93-6.913c0 1.044.26 1.891.814 2.511.586.652 1.302.978 2.149.978a2.668 2.668 0 002.116-.978c.26-.326.456-.652.619-1.109.162-.424.227-.913.227-1.402 0-1.076-.293-1.924-.846-2.543a2.668 2.668 0 00-2.116-.979 2.766 2.766 0 00-2.117.979c-.26.326-.488.652-.65 1.108a4.245 4.245 0 00-.196 1.435zm20.61-3.228c-.977 0-1.889.163-2.703.489a3.257 3.257 0 00-1.726 1.37v8.054h-4.07V9.463h3.745v2.674c.456-.913 1.042-1.63 1.79-2.12.717-.522 1.466-.783 2.28-.815h.423l.26.032v3.718zm1.79 11.902a5.918 5.918 0 001.758.326c.489 0 .88-.163 1.173-.49.26-.325.488-.977.716-1.825l-5.08-13.402h4.2l3.094 9.88 2.702-9.88h3.81L95.87 25.017a5.306 5.306 0 01-6.186 3.652 5.002 5.002 0 01-1.075-.326v-3.489zm22.01-1.76c-1.01 0-1.92-.197-2.67-.653a4.724 4.724 0 01-1.823-1.794v2.218h-3.549V4.213h4.102v7.435a4.85 4.85 0 014.363-2.446c.847 0 1.628.163 2.345.554.716.326 1.302.848 1.855 1.468a8.554 8.554 0 011.173 7.695 7.19 7.19 0 01-1.335 2.218 5.987 5.987 0 01-4.461 1.956zm-1.14-3.425a3.093 3.093 0 002.93-2.087 4.048 4.048 0 00-.618-3.88 2.636 2.636 0 00-2.149-1.044c-.618 0-1.204.229-1.758.653a4.667 4.667 0 00-1.237 1.695v2.805a3.19 3.19 0 002.865 1.826l-.033.032zm9.377-15.456h4.07V18.07c0 1.044.424 1.533 1.303 1.533.464.001.923-.11 1.335-.326l.553 3.033a9.3 9.3 0 01-3.614.782c-1.172 0-2.084-.326-2.702-.913-.652-.652-.977-1.5-.977-2.674V4.213h.032zm14.945 18.88a7.804 7.804 0 01-3.028-.554 6.42 6.42 0 01-3.68-3.75 7.509 7.509 0 011.368-7.5 7.015 7.015 0 012.28-1.533c.878-.358 1.888-.554 3.027-.554a6.832 6.832 0 015.275 2.12c.651.619 1.074 1.369 1.4 2.184a7.346 7.346 0 01-1.368 7.5 6.25 6.25 0 01-2.279 1.533 7.804 7.804 0 01-3.028.554h.033zm-2.963-6.913c0 1.044.26 1.891.814 2.511.586.652 1.302.978 2.149.978a2.7 2.7 0 002.116-.978c.26-.326.456-.652.619-1.109.163-.424.228-.913.228-1.402 0-1.076-.293-1.924-.847-2.543a2.668 2.668 0 00-2.116-.979 2.766 2.766 0 00-2.116.979c-.26.326-.489.652-.652 1.108-.162.457-.195.913-.195 1.435zm21.13 6.685l-3.483-5.413-1.433 1.5v3.913h-4.07V4.213h4.07v10.793l4.526-5.543h4.33l-4.818 5.771 5.21 7.63h-4.331z" fill="#141A2F"/>
+              <g fill="#0AB3AF">
+                <path d="M16.278 15.213H9.813v3.042h6.31c.373 0 .715-.152.995-.395.248-.244.404-.609.404-1.065a1.798 1.798 0 00-.342-1.095c-.249-.305-.529-.487-.902-.487zm.218-3.682c.28-.182.404-.578.404-1.095 0-.456-.124-.791-.342-1.004a1.258 1.258 0 00-.808-.304H9.812v2.738h5.814c.31 0 .621-.152.87-.335z"/>
+                <path d="M26.777 0H1.452C.645 0 0 .643 0 1.415v25.28c0 .773.645 1.255 1.42 1.255h3.742V33l4.646-5.018h16.97c.774 0 1.258-.482 1.258-1.286V1.447c0-.772-.484-1.415-1.29-1.415L26.776 0zM22.52 20.488a3.893 3.893 0 01-1.387 1.416c-.613.385-1.29.74-2.065.9-.774.193-1.613.354-2.484.354H5.162V5.146h12.97c.645 0 1.193.129 1.71.418.483.258.935.611 1.29 1.03a4.815 4.815 0 011.097 3.12c0 .836-.226 1.64-.646 2.412a4.028 4.028 0 01-1.935 1.737c1.032.289 1.839.804 2.451 1.543.581.772.872 1.77.872 3.024 0 .804-.162 1.48-.484 2.058h.032z"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </li>
+    <li class="mobile-nav__head-item mobile-nav__head-item--search">
+      <a href="/search" title="Open Website Search" class='text-secondary'>
+        <svg role="img" class="icon" height="24" width="24">
+          <title>Search website</title>
+          <use xlink:href="#search-icon"></use>
+        </svg>
+      </a>
+    </li>
+    <li class="mobile-nav__head-item mobile-nav__head-item--close ml-[33px] mr-[-2px]">
+      <button aria-expanded="false" title="Close navigation" class='bg-transparent border-none text-secondary p-0'>
+        <span class="sr-only">Close navigation</span>
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+        >
+          <path fill="currentColor" fill-rule="evenodd" d="M1020.05025,16.636039 L1024.99915,21.5851458 L1029.94975,16.636039 C1030.34027,16.2455147 1030.97344,16.2455147 1031.36396,16.636039 C1031.75449,17.0265633 1031.75449,17.6597282 1031.36396,18.0502525 L1026.41415,22.9991458 L1031.36396,27.9497475 C1031.75449,28.3402718 1031.75449,28.9734367 1031.36396,29.363961 C1030.97344,29.7544853 1030.34027,29.7544853 1029.94975,29.363961 L1024.99915,24.4141458 L1020.05025,29.363961 C1019.65973,29.7544853 1019.02656,29.7544853 1018.63604,29.363961 C1018.24551,28.9734367 1018.24551,28.3402718 1018.63604,27.9497475 L1023.58515,22.9991458 L1018.63604,18.0502525 C1018.24551,17.6597282 1018.24551,17.0265633 1018.63604,16.636039 C1019.02656,16.2455147 1019.65973,16.2455147 1020.05025,16.636039 Z" transform="translate(-1018 -16)"/>
+        </svg>
+      </button>
+    </li>
+  </ul>
+  <ul class="mobile-nav__menu m-0 pt-[30px] pl-0">
+    {config?.content?.new_header.map((header_item: any) => {
+      return (
+      <li class="mobile-nav__menu-item-wrapper block [&:not(:last-child)]:after:[border-bottom:1px_solid_#edeff2] [&:not(:last-child)]:after:[content:''] [&:not(:last-child)]:after:block [&:not(:last-child)]:after:my-0 [&:not(:last-child)]:after:mx-[25px] [&:not(:last-child)]:after:[width:calc(100%-50px)]">
+        {header_item.component == 'navigation_item' ? 
+        <a class="mobile-nav__menu-item focus:outline-none"
+            href={header_item.link.cached_url}
+          >
+            <div class="mobile-nav__menu-item-inner flex items-center text-secondary justify-between py-[18px] px-[25px]">
+              {header_item.display}
+            </div>
+          </a> : 
+          <details class='max-h-[62px] overflow-hidden [transition:all_0.7s_linear] open:max-h-[2000px]'>
+            <summary class="mobile-nav__menu-item mobile-nav__menu-item--dropdown list-none focus:outline-none cursor-pointer">
+              <div class="mobile-nav__menu-item-inner flex items-center text-secondary justify-between py-[18px] px-[25px]">
+                {header_item.display}
+                <svg class='block w-[9px] h-[5px]'
+                  aria-hidden="true"
+                  version="1.1"
+                  viewBox="0 0 8 5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(-705 -23)" stroke="currentColor" stroke-width="2"><polyline points="706 24 709 27 712 24"/></g></g>
+                </svg>
+              </div>
+            </summary>
+            <div class="mobile-nav__menu-sub">
+              {header_item.nav_items.map((category: any, index: number) => {
+                return (
+                <div>
+                  {(category.headline != "" && index != 1) && <div class="mobile-nav__menu-sub-name [margin:14px_0_10px] pl-[25px]">
+                      {category.headline}
+                    </div>}
+                  <ul class="mobile-nav__menu- pl-[25px]">
+                    {category.navigation_items.map((nav_item: any) => {
+                      let navLink = nav_item.link.cached_url;
+                      let toCheck = navLink.split('/');
+                      return (
+                      <li class="mobile-nav__menu-sub-item-wrapper [&:not(:last-child)]:mb-[-4px]">
+                        {toCheck[0] === "" ? 
+                        <a href={navLink} class="mobile-nav__menu-sub-item flex items-center rounded-[10px] py-[15px] px-0 [transition:all_0.2s_linear]">
+                          <img
+                            class="lazyload mobile-nav__menu-sub-item-icon h-[26px] w-[36px] mr-[15px]"
+                            width="36"
+                            height="36"
+                            // src="https://a.storyblok.com/f/88751/25x23/7329c3c715/icon.jpg"
+                            src={nav_item.icon}
+                            alt=""
+                          >
+                          <div class="mobile-nav__menu-sub-item-body">
+                            <div class="mobile-nav__menu-sub-item-h text-secondary">
+                              {nav_item.display}
+                            </div>
+                            <div class="mobile-nav__menu-sub-item-t text-[#787783]">
+                              {nav_item.text}
+                            </div>
+                          </div>
+                          </a> : 
+                          <a href={navLink} class="mobile-nav__menu-sub-item  flex items-center rounded-[10px] py-[15px] px-0 [transition:all_0.2s_linear]" target="_blank" rel="noferrer noopener">
+                            <img
+                            class="lazyload mobile-nav__menu-sub-item-icon h-[26px] w-[36px] mr-[15px]"
+                            width="36"
+                            height="36"
+                            // src="https://a.storyblok.com/f/88751/25x23/7329c3c715/icon.jpg"
+                            src={nav_item.icon}
+                            alt=""
+                          >
+                          <div class="mobile-nav__menu-sub-item-body">
+                            <div class="mobile-nav__menu-sub-item-h text-secondary">
+                              {nav_item.display}
+                            </div>
+                            <div class="mobile-nav__menu-sub-item-t text-[#787783]">
+                              {nav_item.text}
+                            </div>
+                          </div>
+                          </a>
+                        }
+                      </li>
+                      )
+                    })}
+                  </ul>
+                  {category.group_link.cached_url != "" && <a class="button button--link-arrow sub-nav__items-link text-black my-[10px] ml-[75px] after:bg-black after:ml-[0.8em] after:[mask-size:contain] after:w-[1em]"
+                      href={category.group_link.cached_url}
+                    >
+                      {category.group_link_text != "" ? category.group_link_text : 'View All'}
+                    </a>}
+                </div>
+                )
+              })}
+              {header_item.nav_sidebar != ""  && <div class="mobile-nav__menu-sub-sidebar [padding:10px_25px_25px]">
+                <SubNavigationSidebar items={header_item.nav_sidebar} />
+                </div>}
+            </div>
+          </details>}
+      </li>
+      )
+    })}
+
+  </ul>
+  <ul class="mobile-nav__actions flex flex-wrap justify-center m-0 [padding:25px_25px_15px]">
+    <li class="mobile-nav__actions-item w-full">
+      <a
+        class="button m-0 w-full"
+        href="/fs/enterprise-contact"
+        class="mobile-nav__actions-button m-0 w-full"
+        >Contact sales</a
+      >
+    </li>
+    <li class="mobile-nav__actions-item">
+      <a
+        href="https://app.storyblok.com/#!/"
+        class="mobile-nav__actions-link text-gray-300 block [padding:16px_25px_0]"
+        >Login</a
+      >
+    </li>
+    <li class="mobile-nav__actions-item">
+      <a
+        href="https://app.storyblok.com/#!/signup"
+        class="mobile-nav__actions-link text-gray-300 block [padding:16px_25px_0]"
+        >Sign up</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<script>
+  function hideInertContent(boolean: boolean) {
+      document
+        .querySelector(".mobile-nav__head-item--close button")?.setAttribute("aria-expanded", `${boolean}`);
+      document
+        .querySelector(".mobile-nav")?.setAttribute("aria-modal", `${boolean}`);
+      document.querySelector("main")?.setAttribute("aria-hidden", `${boolean}`);
+      document
+        .querySelector("footer")?.setAttribute("aria-hidden", `${boolean}`);
+      document
+        .querySelector("header")?.setAttribute("aria-hidden", `${boolean}`);
+      document
+        .querySelector(".top-cta")?.setAttribute("aria-hidden", `${boolean}`);
+      if (document.querySelector(".crisp-client")) {
+        document
+          .querySelector(".crisp-client")?.setAttribute("aria-hidden", `${boolean}`);
+      }
+    }
+
+    const focusableElements = document
+      .querySelector(".mobile-nav")?.querySelectorAll("a, button, details");
+
+    if (document.querySelector("#mobile-nav")) {
+      document.querySelector("#mobile-nav")?.addEventListener("click", () => {
+        document.body.classList.add("mobile-nav--open");
+        document.querySelector('.mobile-nav')?.setAttribute('aria-hidden', 'false');
+        hideInertContent(true);
+        // focusableElements?.[0]?.focus();
+      });
+
+      document
+        .querySelector(".mobile-nav__head-item--close button")?.addEventListener("click", () => {
+          document.body.classList.remove("mobile-nav--open");
+        document.querySelector('.mobile-nav')?.setAttribute('aria-hidden', 'true');
+          document
+            .querySelector("#mobile-nav")?.setAttribute("aria-expanded", "false");
+          hideInertContent(false);
+        });
+    }
+  </script>
