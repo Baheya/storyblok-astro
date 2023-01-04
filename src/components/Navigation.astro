@@ -1,4 +1,5 @@
 ---
+import Button from "./Button.astro";
 import SubNavigation from "./SubNavigation.astro";
 
 const {config} = Astro.props;
@@ -79,7 +80,7 @@ const {config} = Astro.props;
             >
           </li>
           <li>
-            <a class="button header__signup" href="/fs/enterprise-contact">Contact Sales</a>
+            <Button class="button header__signup" style='py-[9px] px-[40px] mt-0 mr-0' href="/fs/enterprise-contact">Contact Sales</Button>
           </li>
         </ul>
       </div>

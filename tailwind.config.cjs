@@ -9,5 +9,9 @@ module.exports = {
 			}
 		},
 	},
-	plugins: [],
+	plugins: [
+		function ({ addVariant }) {
+      addVariant("initial", "html :where(&)");
+    }
+	],
 }
