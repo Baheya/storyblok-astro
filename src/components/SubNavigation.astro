@@ -1,0 +1,59 @@
+---
+import SubNavigationSidebar from "./SubNavigationSidebar.astro";
+
+const {menu, id} = Astro.props;
+---
+
+<div class="sub-nav group left-[-150px] aria-hidden:max-h-0 aria-hidden:opacity-0 overflow-hidden p-[30px] absolute [transform-origin:top_left] aria-hidden:[visibility:hidden] z-10 max-h-[800px] opacity-100 visible [transition:max-height_0.2s_linear,_opacity_0.2s_linear]" id={id} aria-hidden="true">
+  <div class="sub-nav__inner bg-white rounded-[10px] [border:5px_solid_rgba(0,0,0,.012)] [box-shadow:0_0_20px_14px_rgba(27,35,63,.06)] flex justify-between my-0 mx-auto w-[727px]">
+    <div class="sub-nav__main group-aria-hidden:translate-y-[-25px] translate-y-0 grow py-8 px-[30px]">
+      {menu.nav_items.map((category: any) => {
+        return (<div class="sub-nav__category [&:not(:last-child)]:mb-[21px]">
+          <div class="sub-nav__category-name text-secondary mb-[9px]">{category.headline}</div>
+          <ul class="sub-nav__category-items list-none pl-0 ml-0">
+            {category.navigation_items.map((nav_item: any) => {
+              let navLink = nav_item.link.cached_url;
+              let toCheck = navLink.split('/');
+              return <li class="sub-nav__item [&:not(:last-child)]:mb-[-4px]">
+                {toCheck[0] == "" ? <a href={navLink} title={nav_item.display} class='flex items-center rounded-[10px] mx-[-15px] p-[15px] [transition:all_0.2s_linear] hover:bg-[#f7f8f9]'><img
+                    class="lazyload sub-nav__item-icon h-9 w-9 mr-[15px]"
+                    width="36"
+                    height="36"
+                    src={nav_item.icon}
+                    data-src={nav_item.icon}
+                    alt=""
+                  >
+                  <div class="sub-nav__item-body">
+                    <div class="sub-nav__item-h text-secondary">{nav_item.display}</div>
+                    <div class="sub-nav__item-t text-[#787783]">{nav_item.text}</div>
+                  </div></a> : <a href={navLink} target="_blank" rel="noreferrer noopener" title={nav_item.display} class='flex items-center rounded-[10px] mx-[-15px] p-[15px] hover:bg-[#f7f8f9]'><img
+                    class="lazyload sub-nav__item-icon h-9 w-9 mr-[15px]"
+                    width="36"
+                    height="36"
+                    src={nav_item.icon}
+                    data-src={nav_item.icon}
+                    alt=""
+                  >
+                  <div class="sub-nav__item-body">
+                    <div class="sub-nav__item-h text-secondary">{nav_item.display}</div>
+                    <div class="sub-nav__item-t text-[#787783]">{nav_item.text}</div>
+                  </div></a>}
+              </li>
+            })}
+          </ul>
+          {category.group_link.cached_url && 
+            <a class="button button--link-arrow sub-nav__items-link text-black mt-[10px] ml-[50px] after:bg-black after:[mask-size:contain] after:ml-[0.8em] w-[1em]"
+              href={category.group_link.cached_url}
+            >
+              {category.group_link_text != "" ? category.group_link_text : 'View All'}
+            </a>
+          }
+        </div>)
+      })}
+      
+    </div>
+    <div class="sub-nav__sidebar group-aria-hidden:opacity-0 opacity-100 group-aria-hidden:[transform:translateY(-25px)] translate-y-0 bg-[#f7f8f9] [border-radius:0_10px_10px_0] py-[42px] px-10 w-[295px]">
+      <SubNavigationSidebar items={menu.nav_sidebar} />
+    </div>
+  </div>
+</div>
