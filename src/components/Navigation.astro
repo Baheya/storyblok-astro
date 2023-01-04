@@ -1,12 +1,14 @@
 ---
 import Button from "./Button.astro";
 import SubNavigation from "./SubNavigation.astro";
+import TopCTA from "./TopCTA.astro";
 
 const {config} = Astro.props;
 ---
 
 <header class="header relative z-10">
   <a href="#main" id="skipToMain" class="button header__skip-link [clip-path:polygon(0px_0px,_0px_0px,_0px_0px)] [clip:rect(1px_1px_1px_1px)] h-[1px] w-[1px] overflow-hidden py-[5px] px-[10px] absolute focus:[clip-path:unset] focus:[clip:unset] focus:h-auto focus:left-0 focus:overflow-visible focus:top-0 focus:w-auto">Skip to main content</a>
+  {config.content.top_cta != "" && <TopCTA blok={config.content.top_cta[0]} />}
   <div class="header__navigation-wrapper mt-8 mx-auto mb-0 max-w-[1290px] px-[25px] py-0">
     <nav class="header__navigation flex items-center justify-between" aria-label="Main">
       <a href="/" class="header__logo flex items-center">

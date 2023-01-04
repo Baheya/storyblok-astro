@@ -1,0 +1,77 @@
+---
+import { renderRichText } from "@storyblok/js";
+
+const { blok } = Astro.props;
+
+// const renderedRichText = renderRichText(blok.text);
+---
+
+<ul class="top-cta bg-secondary text-white list-none m-0 py-[10px] px-[15px] text-center [&_p]:inline-block [&_p]:[margin:0_12px_0_0] [&_a]:underline" data-sn={blok.ctas_stack_name}>
+  {
+    blok.ctas.map((cta: any, index: number) => {
+      return (
+        <li set:html={renderRichText(cta.text)}
+          class={index != 0 ? "top-cta__hidden hidden" : "before:bg-primary before:rounded-[5px] before:text-white before:content-['NEW'] before:inline-block before:my-[10px] before:mx-3 before:py-[5px] before:px-[10px]"}
+          aria-hidden={index != 0 ? "true" : "false"} data-pv={cta.show_after_pageviews}
+        >
+        </li>
+      );
+    })
+  }
+</ul>
+
+<script>
+  const blok: any = document.querySelector(".top-cta");
+    if (blok) {
+      let ctas: any = blok.querySelectorAll("li");
+      if (ctas.length) {
+        ctas = Array.from(ctas).sort((a: any, b: any) => {
+          if (parseInt(a.dataset.pv) < parseInt(b.dataset.pv)) {
+            return -1;
+          }
+          if (parseInt(a.dataset.pv) > parseInt(b.dataset.pv)) {
+            return 1;
+          }
+          return 0;
+        });
+        if (
+          window.localStorage.getItem("_sb_top_ctas_sn") !== blok.dataset.sn
+        ) {
+          window.localStorage.setItem("_sb_top_ctas_sn", blok.dataset.sn);
+          window.localStorage.setItem("_sb_top_ctas_pvc", '0');
+        }
+        const value: string = window.localStorage.getItem("_sb_top_ctas_pvc")!;
+        const pv_count: any = (parseInt(value) || 0) + 1;
+        for (var i = 0; i < ctas.length; i++) {
+          if (
+            !ctas[i + 1] ||
+            (ctas[i + 1] && parseInt(ctas[i + 1].dataset.pv) > pv_count)
+          ) {
+            if (i > 0) {
+              ctas[0].classList.add("top-cta__hidden");
+              ctas[i].classList.remove("top-cta__hidden");
+              ctas[0].setAttribute("aria-hidden", "true");
+              ctas[i].removeAttribute("aria-hidden");
+            }
+            break;
+          }
+        }
+        window.localStorage.setItem("_sb_top_ctas_pvc", pv_count);
+        // Tracking
+        // ctas.forEach((cta: any) => {
+        //   cta.addEventListener("click", (e) => {
+        //     let linkUrl = "";
+        //     try {
+        //       linkUrl = cta.querySelector("a").href;
+        //     } catch (e) {
+        //       console.log("Issue while trying to fetch the link URL");
+        //     }
+        //     this.segmentTrack("banner_click", {
+        //       link_text: cta.innerText.replace(/(\r\n|\n|\r)/gm, ""),
+        //       link_url: linkUrl,
+        //     });
+        //   });
+        // });
+      }
+    }
+</script>
