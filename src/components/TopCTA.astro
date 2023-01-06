@@ -2,16 +2,14 @@
 import { renderRichText } from "@storyblok/js";
 
 const { blok } = Astro.props;
-
-// const renderedRichText = renderRichText(blok.text);
 ---
 
-<ul class="top-cta bg-secondary text-white list-none m-0 py-[10px] px-[15px] text-center [&_p]:inline-block [&_p]:[margin:0_12px_0_0] [&_a]:underline" data-sn={blok.ctas_stack_name}>
+<ul class="top-cta bg-secondary text-white list-none m-0 py-[10px] px-[15px] text-center [&_p]:inline-block [&_p]:[margin:0_12px_0_0] [&_p]:[font-size:1rem] [&_a]:underline" data-sn={blok.ctas_stack_name}>
   {
     blok.ctas.map((cta: any, index: number) => {
       return (
         <li set:html={renderRichText(cta.text)}
-          class={index != 0 ? "top-cta__hidden hidden" : "before:bg-primary before:rounded-[5px] before:text-white before:content-['NEW'] before:inline-block before:my-[10px] before:mx-3 before:py-[5px] before:px-[10px]"}
+          class={index != 0 ? "top-cta__hidden hidden" : "before:bg-primary before:rounded-[5px] before:text-white before:content-['NEW'] before:inline-block before:my-[10px] before:mx-3 before:py-[5px] before:px-[10px] before:[font-size:1.077rem] before:md:[font-size:.875rem] before:font-bold before:[line-height:1]"}
           aria-hidden={index != 0 ? "true" : "false"} data-pv={cta.show_after_pageviews}
         >
         </li>
