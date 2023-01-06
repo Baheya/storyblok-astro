@@ -1,0 +1,234 @@
+---
+import { renderRichText } from "@storyblok/js";
+
+import StoryblokComponents from "./StoryblokComponents.astro";
+
+const { blok } = Astro.props;
+
+const headlineString = blok.headline;
+const replaceColor = headlineString
+  .replaceAll("[color]", '<span class="hero__headline-colored text-primary">')
+  .replaceAll("[/color]", "</span>");
+const replaceSameline = replaceColor
+  .replaceAll(
+    "[sameline]",
+    '<span class="hero__headline-sameline whitespace-nowrap">'
+  )
+  .replaceAll("[/sameline]", "</span>");
+const replaceRotating = replaceSameline
+  .replaceAll(
+    "[rotating]",
+    '<span class="hero__headline-colored text-primary"><span class="rotating-text-container">'
+  )
+  .replaceAll("[/rotating]", "</span></span>");
+
+const text = blok.text;
+const ctas = blok.ctas;
+const image = blok.image;
+const url_parts = image.filename.split("/");
+const size_parts = url_parts[5].split("x");
+const video_url = blok.video_url;
+const logo_image = blok.logo
+  ? blok.logo?.filename?.contains(".svg")
+    ? blok.logo?.filename
+    : `${blok.logo?.filename}/m/0x66`
+  : undefined;
+
+let image_srcset = "";
+const sizes = "400,600,800,1000,1600";
+const sizes_split = sizes.split(",");
+const sizes_string =
+  "(max-width: 500px) 400px, (max-width: 700px) 600px, (max-width: 1100px) 1000px, 1300px";
+sizes_split.map((size: string) => {
+  let src_filters = `${size}x0/filters:quality(75)/`;
+  image_srcset =
+    image_srcset +
+    `${image_srcset != "" ? "," : ""}${
+      image.filename
+    }/m/${src_filters} ${size}w`;
+});
+
+const headline_size = blok.headline_size != '' ? '[font-size:2.692rem] md:[font-size:3.625rem]' : '';
+const background_color = blok.background_color === 'dark-background' ? '[background-image:radial-gradient(ellipse_at_50%_100%,#313d64_0,#1b243f_100%)] bg-cover text-white m-0 [&:first-child]:pt-[120px]' : '';
+const vertical = blok.vertical_layout != "" ? true : false;
+
+---
+
+<section class={`hero mt-[70px] mx-0 mb-[30px] relative min-[800px]:[margin:80px_0_0] ${background_color} ${vertical ? '[padding:80px_0_30px] text-center min-[1200px]:[padding:168px_0_50px]' : ''}`}>
+  <div class="hero__content overflow-hidden relative">
+    <div class={`hero__grid grid items-center max-w-[1200px] my-0 mx-auto py-0 px-[25px] relative z-[2] ${vertical ? '[grid-template-columns:1fr]' : 'min-[900px]:gap-[110px] min-[900px]:[grid-template-columns:480px_1fr]'} ${!vertical && blok.heaadline_size != "" ? 'min-[900px]:gap-[110px] min-[900px]:[grid-template-columns:400px_1fr] min-[1100px]:[grid-template-columns:593px_1fr]' : ''}`}>
+      <div class="hero__text-wrapper">
+        {
+          blok.logo && (
+            <img src={logo_image} alt={blok.logo?.name} class="hero__logo h-[33px] mb-5 w-auto" />
+          )
+        }
+        <h1
+          class={`hero__headline [margin:0_0_21px] md:[margin:0_0_27px] font-bold [line-height:1.18] ${headline_size}`}
+          data-options={blok.rotating_text_options}
+          set:html={replaceRotating}
+        />
+        <div class={`hero__text [font-size:1.231rem;] md:[font-size:1.125rem]${vertical ? ' max-w-[540px] my-0 mx-auto' : ''}`} set:html={renderRichText(text)} />
+        {ctas.size != 0 && <div class="hero__ctas flex items-center flex-col mt-[26px] min-[500px]:flex-row">
+          {ctas.map((cta) => {
+            return (
+            <StoryblokComponents blok={cta} style='[&:first-child]:min-[500px]:mr-[30px] [&:first-child]:mb-[15px] [margin:0_0_20px] [font-size:1.308rem] font-medium' />
+            )
+          })}
+          </div>}
+      </div>
+      <div
+        class={`hero__image-wrapper${video_url != "" ? " video-preview relative" : ""}${vertical ? ' mt-5 relative z-[4] min-[900px]:mt-[-30px]' : ' mt-10 relative min-[900px]:h-[35vw] min-[900px]:max-h-[546px] min-[900px]:mt-0'}`}
+      >
+        <img
+          width={size_parts.size != 0 ? size_parts[0] : ""}
+          height={size_parts.size != 0 ? size_parts[1] : ""}
+          sizes={sizes_string}
+          src={`${image.filename}/m/900x0/`}
+          srcset={image_srcset}
+          alt={image.alt}
+          class={`hero__image${vertical ? '' : ' [aspect-ratio:attr(width)/attr(height)] w-full min-[900px]:h-full min-[900px]:left-0 min-[900px]:mt-0 min-[900px]:absolute min-[900px]:top-0 min-[900px]:w-auto' }`}
+        />
+        {
+          video_url != "" && (
+            <a
+              href={video_url}
+              class={`hero__play-wrapper${vertical ? '' : ' block h-full left-0 absolute top-0 w-full min-[900px]:w-auto'}`}
+              style={`aspect-ratio: ${size_parts[0]} / ${size_parts[1]};`}
+              title="Click to load and start video"
+            >
+              <div class="video-preview__play absolute appearance-none cursor-pointer border-none h-[152px] z-[1] top-[50%] left-[50%] [transform:translate3d(-50%,_-50%,_0)_scale(1)] bg-transparent [transition:transform_0.2s_linear] w-[152px] max-[400px]:h-[80px] max-[400px]:w-[80px]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 150 150"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <circle
+                      cx="75"
+                      cy="75"
+                      r="75"
+                      fill="#00BAB7"
+                      fill-opacity=".08"
+                    />
+                    <circle
+                      cx="75"
+                      cy="75"
+                      r="65"
+                      fill="#00BAB7"
+                      fill-opacity=".08"
+                    />
+                    <circle cx="75" cy="75" r="55" fill="#0DBAB6" />
+                    <path
+                      fill="#FFF"
+                      d="M81.5013048,63.8333756 L94.745766,85.7552424 C95.3169561,86.7006606 95.0135844,87.9301146 94.0681662,88.5013048 C93.7561297,88.6898268 93.3984994,88.7894737 93.0339349,88.7894737 L66.5450125,88.7894737 C65.440443,88.7894737 64.5450125,87.8940432 64.5450125,86.7894737 C64.5450125,86.4249092 64.6446594,86.0672788 64.8331814,85.7552424 L78.0776426,63.8333756 C78.6488328,62.8879574 79.8782868,62.5845856 80.823705,63.1557758 C81.1011442,63.3233953 81.3336853,63.5559364 81.5013048,63.8333756 Z"
+                      transform="rotate(90 79.79 74.895)"
+                    />
+                  </g>
+                </svg>
+                <span class="sr-only">Click to load and start video</span>
+              </div>
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+  {
+    blok.background_color === "light-circle" && (
+      <img
+        class="hero__background left-0 absolute top-[-185px] w-full z-[-1]"
+        src="https://a.storyblok.com/f/88751/x/9fd23dc5c8/v2-hero-section-bg.svg"
+        alt=""
+      />
+    )
+  }
+</section>
+
+<style is:inline>
+  .rotating-text {
+  --rotation-duration: 2s;
+  display: inline-block;
+  position: relative;
+}
+
+.rotating-text__option {
+    left: 0;
+    position: absolute;
+    top: -30px;
+    opacity: 0;
+    white-space: nowrap;
+  }
+
+  .rotating-text__option--visible {
+    opacity: 1;
+    top: 0;
+  }
+
+  .rotating-text__option--in {
+    opacity: 1;
+    top: 0;
+    transition: all 0.2s linear;
+  }
+
+  .rotating-text__option--out {
+    opacity: 0;
+    top: 30px;
+    transition: all 0.2s linear;
+  }
+
+  .rotating-text__placeholder {
+    visibility: hidden;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  const textEl: any = document.querySelector("[data-options]");
+  const alternatives = textEl.getAttribute("data-options")?.split(",");
+  const container = textEl.querySelector(".rotating-text-container");
+  if (container) {
+    const text_rotator = document.createElement("span");
+    text_rotator.className = "rotating-text";
+    text_rotator.innerHTML = `<span class="rotating-text__options"><span class="rotating-text__option rotating-text__option--visible">${
+      container.innerText
+    }</span>${alternatives
+      .map((a: any) => `<span class="rotating-text__option">${a}</span>`)
+      .join("")}</span>`;
+    container.replaceWith(text_rotator);
+
+    const options = text_rotator.querySelectorAll(".rotating-text__option");
+    // if (!options.length) return;
+    const longestWord = Array.from(options)
+      .sort((a: any, b: any) => {
+        if (a.offsetWidth < b.offsetWidth) {
+          return 1;
+        }
+        if (a.offsetWidth > b.offsetWidth) {
+          return -1;
+        }
+        return 0;
+      })
+      .map((el: any) => el.innerText)[0];
+    const placeholder = document.createElement("span");
+    placeholder.className = "rotating-text__placeholder";
+    placeholder.innerText = longestWord;
+    text_rotator.appendChild(placeholder);
+
+    let currentIndex = 0;
+    setInterval(() => {
+      const nextIndex =
+        currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+      const currentIndexStatic = currentIndex;
+      options[nextIndex].classList.add("rotating-text__option--in");
+      options[currentIndex].classList.add("rotating-text__option--out");
+      setTimeout(() => {
+        options[nextIndex].className =
+          "rotating-text__option rotating-text__option--visible";
+        options[currentIndexStatic].className = "rotating-text__option";
+      }, 1000);
+      currentIndex = nextIndex;
+    }, 3000);
+  }
+</script>

@@ -1,5 +1,9 @@
 ---
-const { blok, variant = 'default', href, target, style } = Astro.props;
+const { blok, href, target, style = "" } = Astro.props;
+const variant = blok
+  ? blok.color.replace("button--", "").replace("e-", "")
+  : "";
+
 const variantStyle =
   variant === "white"
     ? "bg-white text-[#5b6278]"
@@ -13,20 +17,33 @@ const variantStyle =
     ? "bg-[#1da1f2] text-white"
     : variant === "discord"
     ? "bg-[#7289da] text-white"
-    : variant === "link" ?
-      'bg-inherit p-0 text-[#5b6278] shadow-none text-primary flex items-center m-0 p-0 w-auto justify-start after:bg-primary after:[content:""] after:inline-block after:h-[14px] after:[margin:0_0_0_14px] [mask-image:url("data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="14px" viewBox="0 0 18 14" version="1.1"> <path d="M11.6128994,0.209704612 L11.7071068,0.292893219 L17.7071068,6.29289322 C17.7355731,6.32135953 17.7623312,6.35153408 17.787214,6.38324992 L17.7071068,6.29289322 C17.7425008,6.32828727 17.774687,6.36567442 17.8036654,6.40469339 C17.8215099,6.42886931 17.8382813,6.45372505 17.8539326,6.47933981 C17.8613931,6.49138689 17.8685012,6.50360556 17.8753288,6.5159379 C17.8862061,6.53570605 17.8966234,6.5561086 17.9063462,6.57690085 C17.914321,6.5939015 17.9218036,6.61120435 17.9287745,6.62866398 C17.9366843,6.6484208 17.9438775,6.66820232 17.9504533,6.68826359 C17.9552713,6.70314866 17.9599023,6.71853672 17.9641549,6.73400703 C17.9701664,6.75556352 17.9753602,6.77725392 17.9798348,6.7992059 C17.9832978,6.81662474 17.9863719,6.83405099 17.9889822,6.85153313 C17.9920328,6.87147534 17.9944666,6.89211395 17.9962623,6.91293499 C17.9978436,6.93173451 17.9989053,6.94973363 17.9994829,6.96774538 C17.9998183,6.97778921 18,6.98887338 18,7 L17.9994506,7.03324678 C17.9988772,7.05059097 17.997855,7.06792309 17.996384,7.08522423 L18,7 C18,7.05062028 17.9962388,7.10036209 17.9889807,7.14896122 C17.9863719,7.16594901 17.9832978,7.18337526 17.9797599,7.20072576 C17.9753602,7.22274608 17.9701664,7.24443648 17.964279,7.26583961 C17.9599023,7.28146328 17.9552713,7.29685134 17.9502619,7.31214252 C17.9438775,7.33179768 17.9366843,7.3515792 17.928896,7.37105852 C17.9218036,7.38879565 17.914321,7.4060985 17.9063266,7.42322155 C17.8966234,7.4438914 17.8862061,7.46429395 17.8751242,7.48427695 C17.8685012,7.49639444 17.8613931,7.50861311 17.8540045,7.52070875 C17.8382813,7.54627495 17.8215099,7.57113069 17.8036865,7.5951593 C17.7992821,7.60120864 17.7948255,7.60707334 17.7902954,7.61289944 C17.7849289,7.61966276 17.7826279,7.62256244 17.7803112,7.62544899 L17.7071068,7.70710678 L11.7071068,13.7071068 C11.3165825,14.0976311 10.6834175,14.0976311 10.2928932,13.7071068 C9.93240926,13.3466228 9.90467972,12.7793918 10.2097046,12.3871006 L10.2928932,12.2928932 L14.585,8 L1,8 C0.44771525,8 0,7.55228475 0,7 C0,6.48716416 0.38604019,6.06449284 0.883378875,6.00672773 L1,6 L14.585,6 L10.2928932,1.70710678 C9.93240926,1.34662282 9.90467972,0.779391764 10.2097046,0.387100557 L10.2928932,0.292893219 C10.6533772,-0.0675907428 11.2206082,-0.0953202783 11.6128994,0.209704612 Z" fill="currentColor" /> </svg>")] [mask-position:center] [mask-repeat:no-repeat] [transition:all_0.1s_linear] w-[18px]' : variant === 'full' ? 'w-full [margin:10px_0_0_0]' : variant === 'loading' && '[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.11)] cursor-initial opacity-[0.7] relative [transform:translateY(0)] before:[border:3px_solid_#0da9a5] before:[border-top-color:#fff] before:[border-right-color:#fff] before:[border-radius:50%] before:[content:""] before:h-[26px] before:left-[14%] before:absolute before:top-[50%] before:[transform:translateY(-50%)] before:w-[26px] before:min-[600px]:left-[20%]'
+    : variant === "link"
+    ? 'bg-inherit p-0 text-[#5b6278] shadow-none text-primary flex items-center m-0 p-0 w-auto justify-start after:bg-primary after:[content:""] after:inline-block after:h-[14px] after:[margin:0_0_0_14px] [mask-image:url("data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="14px" viewBox="0 0 18 14" version="1.1"> <path d="M11.6128994,0.209704612 L11.7071068,0.292893219 L17.7071068,6.29289322 C17.7355731,6.32135953 17.7623312,6.35153408 17.787214,6.38324992 L17.7071068,6.29289322 C17.7425008,6.32828727 17.774687,6.36567442 17.8036654,6.40469339 C17.8215099,6.42886931 17.8382813,6.45372505 17.8539326,6.47933981 C17.8613931,6.49138689 17.8685012,6.50360556 17.8753288,6.5159379 C17.8862061,6.53570605 17.8966234,6.5561086 17.9063462,6.57690085 C17.914321,6.5939015 17.9218036,6.61120435 17.9287745,6.62866398 C17.9366843,6.6484208 17.9438775,6.66820232 17.9504533,6.68826359 C17.9552713,6.70314866 17.9599023,6.71853672 17.9641549,6.73400703 C17.9701664,6.75556352 17.9753602,6.77725392 17.9798348,6.7992059 C17.9832978,6.81662474 17.9863719,6.83405099 17.9889822,6.85153313 C17.9920328,6.87147534 17.9944666,6.89211395 17.9962623,6.91293499 C17.9978436,6.93173451 17.9989053,6.94973363 17.9994829,6.96774538 C17.9998183,6.97778921 18,6.98887338 18,7 L17.9994506,7.03324678 C17.9988772,7.05059097 17.997855,7.06792309 17.996384,7.08522423 L18,7 C18,7.05062028 17.9962388,7.10036209 17.9889807,7.14896122 C17.9863719,7.16594901 17.9832978,7.18337526 17.9797599,7.20072576 C17.9753602,7.22274608 17.9701664,7.24443648 17.964279,7.26583961 C17.9599023,7.28146328 17.9552713,7.29685134 17.9502619,7.31214252 C17.9438775,7.33179768 17.9366843,7.3515792 17.928896,7.37105852 C17.9218036,7.38879565 17.914321,7.4060985 17.9063266,7.42322155 C17.8966234,7.4438914 17.8862061,7.46429395 17.8751242,7.48427695 C17.8685012,7.49639444 17.8613931,7.50861311 17.8540045,7.52070875 C17.8382813,7.54627495 17.8215099,7.57113069 17.8036865,7.5951593 C17.7992821,7.60120864 17.7948255,7.60707334 17.7902954,7.61289944 C17.7849289,7.61966276 17.7826279,7.62256244 17.7803112,7.62544899 L17.7071068,7.70710678 L11.7071068,13.7071068 C11.3165825,14.0976311 10.6834175,14.0976311 10.2928932,13.7071068 C9.93240926,13.3466228 9.90467972,12.7793918 10.2097046,12.3871006 L10.2928932,12.2928932 L14.585,8 L1,8 C0.44771525,8 0,7.55228475 0,7 C0,6.48716416 0.38604019,6.06449284 0.883378875,6.00672773 L1,6 L14.585,6 L10.2928932,1.70710678 C9.93240926,1.34662282 9.90467972,0.779391764 10.2097046,0.387100557 L10.2928932,0.292893219 C10.6533772,-0.0675907428 11.2206082,-0.0953202783 11.6128994,0.209704612 Z" fill="currentColor" /> </svg>")] [mask-position:center] [mask-repeat:no-repeat] [transition:all_0.1s_linear] w-[18px]'
+    : variant === "full"
+    ? "w-full [margin:10px_0_0_0]"
+    : variant === "loading"
+    ? '[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.11)] cursor-initial opacity-[0.7] relative [transform:translateY(0)] before:[border:3px_solid_#0da9a5] before:[border-top-color:#fff] before:[border-right-color:#fff] before:[border-radius:50%] before:[content:""] before:h-[26px] before:left-[14%] before:absolute before:top-[50%] before:[transform:translateY(-50%)] before:w-[26px] before:min-[600px]:left-[20%]'
+    : "";
 ---
 
-{blok ? <a
-  class={`button ${blok?.color?.replace(
-    "e-",
-    ""
-  )} button initial:inline-block initial:rounded-[5px] initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.11)] initial:border-none initial:text-center initial:py-[9px] initial:[margin:10px_10px_0_10px] md:initial:[margin:10px_16px_0_16px] md:initial:[transition:ease_200ms_all] initial:bg-primary initial:text-white hover:cursor-pointer hover:initial:[transform:translateY(-2px)] hover:initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.25)] ${variantStyle}`}
-  href={`${blok?.link?.cached_url != "" && blok?.link?.cached_url}${
-    blok?.link?.anchor != "" && `#${blok?.link?.anchor}`
-  }`}
-  target={`${blok?.target != "" && blok?.target}`}>{blok?.text}</a
-> : <a
-  class={`button initial:bg-primary initial:text-white initial:inline-block initial:rounded-[5px] initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.11)] initial:border-none initial:text-center initial:py-[9px] initial:[margin:10px_10px_0_10px] md:initial:[margin:10px_16px_0_16px] md:initial:[transition:ease_200ms_all] hover:cursor-pointer hover:initial:[transform:translateY(-2px)] hover:initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.25)] ${variantStyle} ${style}`}
-  href={href}
-  target={target}><slot /></a>}
+{
+  blok ? (
+    <a
+      class={`button initial:bg-primary initial:text-white initial:inline-block initial:rounded-[5px] initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.11)] initial:border-none initial:text-center initial:py-[9px] initial:px-[26px] initial:[margin:10px_10px_0_10px] md:initial:[margin:10px_16px_0_16px] md:initial:[transition:ease_200ms_all] hover:cursor-pointer hover:initial:[transform:translateY(-2px)] hover:initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.25)] initial:font-medium initial:[font-size:1.308rem] initial:md:[font-size:1.125rem] ${variantStyle} ${style}`}
+      href={`${blok?.link?.cached_url != "" && blok?.link?.cached_url}${
+        blok?.link?.anchor != "" && `#${blok?.link?.anchor}`
+      }`}
+      target={`${blok?.target != "" && blok?.target}`}
+    >
+      {blok?.text}
+    </a>
+  ) : (
+    <a
+      class={`button initial:bg-primary initial:text-white initial:inline-block initial:rounded-[5px] initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.11)] initial:border-none initial:text-center initial:py-[9px] initial:px-[26px] initial:[margin:10px_10px_0_10px] md:initial:[margin:10px_16px_0_16px] md:initial:[transition:ease_200ms_all] hover:cursor-pointer hover:initial:[transform:translateY(-2px)] hover:initial:[box-shadow:0_6px_13px_2px_rgba(0,0,0,0.25)] initial:font-medium initial:[font-size:1.308rem] initial:md:[font-size:1.125rem] ${variantStyle} ${style}`}
+      href={href}
+      target={target}
+    >
+      <slot />
+    </a>
+  )
+}

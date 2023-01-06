@@ -8,6 +8,9 @@ module.exports = {
 				secondary: '#1b243f'
 			}
 		},
+		fontFamily: {
+			'sans': ['Roboto', 'Helvetica', 'sans-serif']
+		}
 	},
 	plugins: [
 		function ({ addVariant }) {
