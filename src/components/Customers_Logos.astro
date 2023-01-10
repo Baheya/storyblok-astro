@@ -1,0 +1,103 @@
+---
+import { urlify } from "../scripts/urlify";
+import Button from "./Button.astro";
+
+const { blok } = Astro.props;
+
+const paginated = blok.show_more ? true : false;
+---
+
+<section
+  class={`customers-logos [margin:2px_0_57px] py-0 px-[25px] min-[800px]:[margin:60px_0] ${paginated ? 'customers-logos--paginated flex items-center flex-col justify-center' : ''}`}
+>
+  {
+    blok.headline != "" && (
+      <h2 class="customers-logos__headline font-normal mb-6 text-center">{blok.headline}</h2>
+    )
+  }
+  <div class={`customers-logos__logos flex flex-wrap justify-center max-w-[878px] my-0 mx-auto ${paginated ? 'gap-x-[40px] max-w-[1200px] relative gap-y-[10px] min-[1000px]:gap-x-[80px] min-[1000px]:gap-y-[30px]' : ''}`}>
+    {
+      blok.logos.map((logo: any) => {
+        return (
+          <img
+            height="35"
+            width="190"
+            src={logo.filename}
+            alt={logo.alt}
+            class="customers-logos__logo [margin:16px_20px] max-h-[30px] max-w-[95px] w-auto min-[800px]:max-h-[35px] min-[800px]:max-w-[190px]"
+          />
+        );
+      })
+    }
+  </div>
+  {
+    blok.cta.size > 0 && (
+      <div class={`customers-logos__cta ${paginated ? 'flex justify-center' : ''}`}>
+        <Button blok={blok.cta[0]} />
+      </div>
+    )
+  }
+
+  {
+    urlify(blok.link_url) && blok.link_label != "" && (
+      <a href={urlify(blok.link_url)} class={`customers-logos__link ${paginated ? 'text-[#313849] mt-10' : ''}`}>
+        {blok.link_label}
+        <svg aria-hidden="true" focusable="false" class="icon">
+          <use xlink:href="#icon-arrow-right" />
+        </svg>
+      </a>
+    )
+  }
+</section>
+
+<script>
+  document.querySelectorAll(".customers-logos--paginated").forEach((blok) => {
+      const customers_logos = blok.querySelectorAll(".customers-logos__logo");
+      customers_logos.forEach((logo, i) => {
+        if (i >= 10) {
+          logo.classList.add("customers-logos__logo--hidden hidden");
+        }
+      });
+
+      // progressively enhance component
+      blok.classList.replace(
+        "customers-logos--paginated",
+        "customers-logos--paginated-js"
+      );
+      blok.querySelectorAll(".customers-logos__logo--hidden").forEach((logo) => logo.classList.add('hidden'));
+
+      const show_more_button = document.createElement("button");
+      const button_content = document.createTextNode("Show More");
+      const gradient_overlay = document.createElement("div");
+      const customer_logos_cta = document.querySelector(
+        ".customers-logos__cta"
+      );
+
+      gradient_overlay.classList.add("customers-logos__overlay [background:linear-gradient(0deg,_#fff,_transparent)] bottom-0 left-0 right-0 top-0 absolute");
+      show_more_button.appendChild(button_content);
+      show_more_button.classList.add("button");
+
+      customer_logos_cta
+        ? customer_logos_cta.insertBefore(
+            show_more_button,
+            customer_logos_cta.childNodes[0]
+          )
+        : blok.querySelector(".customers-logos__logos")?.insertAdjacentElement("afterend", show_more_button);
+      blok.querySelector(".customers-logos__logos")?.prepend(gradient_overlay);
+
+      show_more_button.addEventListener("click", () => {
+        blok
+          .querySelectorAll(".customers-logos__logo--hidden")
+          .forEach((logo, i) => {
+            if (i < 5) {
+              logo.classList.remove("customers-logos__logo--hidden", "hidden");
+            }
+          });
+
+        if (!blok.querySelector(".customers-logos__logo--hidden")) {
+          show_more_button.remove();
+          gradient_overlay.remove();
+        }
+      });
+    });
+</script>

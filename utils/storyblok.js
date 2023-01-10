@@ -29,6 +29,7 @@ export async function getLinks() {
 export async function getStory(slug) {
   const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
     version: 'draft',
+    resolve_links: 'url'
   })
  
   const story = data ? data.story : null
